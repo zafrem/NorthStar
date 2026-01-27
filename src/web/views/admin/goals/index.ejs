@@ -1,0 +1,80 @@
+<%- include('../../layouts/main', { body: `
+<div class="page-header">
+  <div class="page-header-content">
+    <div>
+      <h1>Goals Management</h1>
+      <p class="page-subtitle">View and manage all goals across the organization</p>
+    </div>
+    <div>
+      <a href="/admin/goals/create" class="btn btn-primary">Create Goal</a>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header">
+    <h2>Filter by Organization</h2>
+  </div>
+  <div class="card-body">
+    <form action="/admin/goals" method="GET">
+      <div class="form-row">
+        <div class="form-group" style="margin-bottom: 0;">
+          <select name="orgId" onchange="this.form.submit()">
+            <option value="">All Organizations</option>
+            ${organizations.map(org => `
+              <option value="${org.id}" ${org.id === selectedOrgId ? 'selected' : ''}>${org.name}</option>
+            `).join('')}
+          </select>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-body">
+    ${goals.length === 0 ? '<p class="text-muted">No goals found.</p>' : `
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Organization</th>
+          <th>Owner</th>
+          <th>Status</th>
+          <th>Progress</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${goals.map(g => `
+        <tr>
+          <td>${g.title}</td>
+          <td><a href="/organizations/${g.orgId}">${orgMap.get(g.orgId) || 'Unknown'}</a></td>
+          <td>${g.ownerId ? (userMap.get(g.ownerId) || 'Unknown') : '-'}</td>
+          <td>
+            <span class="badge ${g.status === 'completed' ? 'badge-success' : g.status === 'in_progress' ? 'badge-warning' : ''}">${g.status.replace('_', ' ')}</span>
+          </td>
+          <td>
+            <div class="progress-bar" style="width: 100px;">
+              <div class="progress-fill" style="width: ${g.progress}%"></div>
+              <span class="progress-text">${g.progress}%</span>
+            </div>
+          </td>
+          <td>
+            <a href="/admin/goals/${g.id}/edit" class="btn btn-sm btn-primary">Edit</a>
+            <form action="/admin/goals/${g.id}/delete" method="POST" style="display:inline" onsubmit="return confirm('Delete this goal?')">
+              <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+            </form>
+          </td>
+        </tr>
+        `).join('')}
+      </tbody>
+    </table>
+    `}
+  </div>
+</div>
+
+<div class="page-actions">
+  <a href="/admin" class="btn btn-secondary">Back to Admin Dashboard</a>
+</div>
+` }) %>

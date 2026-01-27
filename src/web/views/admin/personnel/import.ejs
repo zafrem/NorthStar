@@ -1,0 +1,107 @@
+<%- include('../../layouts/main', { body: `
+<div class="page-header">
+  <h1>Import Personnel</h1>
+  <p class="page-subtitle">Bulk import users from CSV or JSON</p>
+</div>
+
+${error ? `<div class="alert alert-error">${error}</div>` : ''}
+
+${result ? `
+<div class="card">
+  <div class="card-header">
+    <h2>Import Results</h2>
+  </div>
+  <div class="card-body">
+    ${result.created.length > 0 ? `
+    <div class="alert alert-success">
+      <strong>Successfully imported ${result.created.length} user(s):</strong><br>
+      ${result.created.join(', ')}
+    </div>
+    ` : ''}
+
+    ${result.parseErrors.length > 0 ? `
+    <div class="alert alert-error">
+      <strong>Parse errors:</strong>
+      <ul>
+        ${result.parseErrors.map(e => `<li>Line ${e.line}: ${e.message}${e.data ? ' - ' + e.data : ''}</li>`).join('')}
+      </ul>
+    </div>
+    ` : ''}
+
+    ${result.createErrors.length > 0 ? `
+    <div class="alert alert-error">
+      <strong>Creation errors:</strong>
+      <ul>
+        ${result.createErrors.map(e => `<li>${e.email}: ${e.message}</li>`).join('')}
+      </ul>
+    </div>
+    ` : ''}
+
+    ${result.created.length === 0 && result.parseErrors.length === 0 && result.createErrors.length === 0 ? `
+    <p class="text-muted">No users were imported.</p>
+    ` : ''}
+  </div>
+</div>
+` : ''}
+
+<div class="card">
+  <div class="card-body">
+    <form action="/admin/personnel/import" method="POST">
+      <div class="form-group">
+        <label for="format">Format</label>
+        <select id="format" name="format">
+          <option value="auto">Auto-detect</option>
+          <option value="csv">CSV</option>
+          <option value="json">JSON</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="importData">Data *</label>
+        <textarea id="importData" name="importData" rows="15" placeholder="Paste CSV or JSON data here..." required></textarea>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary">Import</button>
+        <a href="/admin/personnel" class="btn btn-secondary">Cancel</a>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header">
+    <h2>Format Examples</h2>
+  </div>
+  <div class="card-body">
+    <h3>CSV Format</h3>
+    <pre class="guidelines-content">name,email,org_id,job_function,is_leader
+John Doe,john@example.com,org-engineering,Engineer,false
+Jane Smith,jane@example.com,org-product,Product Manager,true</pre>
+    <p class="form-help">Required columns: name, email, org_id. Optional: job_function, is_leader</p>
+
+    <h3 style="margin-top: 20px;">JSON Format</h3>
+    <pre class="guidelines-content">[
+  {
+    "name": "John Doe",
+    "email": "john@example.com",
+    "orgId": "org-engineering",
+    "jobFunction": "Engineer",
+    "isLeader": false
+  },
+  {
+    "name": "Jane Smith",
+    "email": "jane@example.com",
+    "orgName": "Product Department",
+    "jobFunction": "Product Manager",
+    "isLeader": true
+  }
+]</pre>
+    <p class="form-help">Use either orgId (exact ID) or orgName (will be resolved to ID)</p>
+  </div>
+</div>
+
+<div class="page-actions">
+  <a href="/admin/personnel" class="btn btn-secondary">Back to Personnel List</a>
+</div>
+` }) %>

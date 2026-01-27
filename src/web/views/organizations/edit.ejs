@@ -1,0 +1,33 @@
+<%- include('../layouts/main', { body: `
+<div class="page-header">
+  <h1>Edit Organization</h1>
+  <p class="page-subtitle">Update ${organization.name}</p>
+</div>
+
+<div class="card">
+  <div class="card-body">
+    <form action="/organizations/${organization.id}" method="POST" class="form">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" value="${organization.name}" required>
+      </div>
+
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea id="description" name="description" rows="3">${organization.description || ''}</textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="aiGuidelines">AI Guidelines</label>
+        <textarea id="aiGuidelines" name="aiGuidelines" rows="8" placeholder="Guidelines for AI assistants working with this organization...">${organization.aiGuidelines || ''}</textarea>
+        <small class="form-help">These guidelines will be provided to AI assistants to help them understand how to work with this organization.</small>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary">Save Changes</button>
+        <a href="/organizations/${organization.id}" class="btn btn-secondary">Cancel</a>
+      </div>
+    </form>
+  </div>
+</div>
+` }) %>

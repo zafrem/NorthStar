@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="<%= typeof preferences !== 'undefined' ? preferences.theme : 'system' %>">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/public/css/styles.css">
+  <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+  <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body>
+  <div class="app-container">
+    <% if (typeof user !== 'undefined' && user) { %>
+    <nav class="sidebar">
+      <div class="sidebar-header">
+        <h1 class="logo">NorthStar</h1>
+      </div>
+      <ul class="nav-links">
+        <li><a href="/" class="<%= typeof currentPath !== 'undefined' && currentPath === '/' ? 'active' : '' %>">Dashboard</a></li>
+        <li><a href="/organizations" class="<%= typeof currentPath !== 'undefined' && currentPath.startsWith('/organizations') ? 'active' : '' %>">Organizations</a></li>
+        <li><a href="/users" class="<%= typeof currentPath !== 'undefined' && currentPath.startsWith('/users') ? 'active' : '' %>">Users</a></li>
+        <li><a href="/settings" class="<%= typeof currentPath !== 'undefined' && currentPath === '/settings' ? 'active' : '' %>">App Settings</a></li>
+        <li><a href="/preferences" class="<%= typeof currentPath !== 'undefined' && currentPath === '/preferences' ? 'active' : '' %>">Preferences</a></li>
+        <% if (user && user.isAdmin) { %>
+        <li class="nav-divider"></li>
+        <li><a href="/admin" class="<%= typeof currentPath !== 'undefined' && currentPath.startsWith('/admin') ? 'active' : '' %>">Admin</a></li>
+        <% } %>
+      </ul>
+      <div class="sidebar-footer">
+        <div class="user-info">
+          <span class="user-name"><%= user.name %></span>
+          <span class="user-email"><%= user.email %></span>
+        </div>
+        <form action="/auth/logout" method="POST">
+          <button type="submit" class="btn btn-sm btn-secondary">Logout</button>
+        </form>
+      </div>
+    </nav>
+    <% } %>
+
+    <main class="main-content <%= typeof user !== 'undefined' && user ? '' : 'full-width' %>">
+      <%- body %>
+    </main>
+  </div>
+
+  <script src="/public/js/app.js"></script>
+</body>
+</html>

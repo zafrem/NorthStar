@@ -1,0 +1,82 @@
+<%- include('../layouts/main', { body: `
+<div class="page-header">
+  <div class="page-header-content">
+    <h1>${targetUser.name}</h1>
+    <a href="/users/${targetUser.id}/edit" class="btn btn-primary">Edit User</a>
+  </div>
+  <p class="page-subtitle">${targetUser.email}</p>
+</div>
+
+<div class="card">
+  <div class="card-header">
+    <h2>Details</h2>
+  </div>
+  <div class="card-body">
+    <dl class="config-list">
+      <div class="config-item">
+        <dt>ID</dt>
+        <dd><code>${targetUser.id}</code></dd>
+      </div>
+      <div class="config-item">
+        <dt>Email</dt>
+        <dd>${targetUser.email}</dd>
+      </div>
+      <div class="config-item">
+        <dt>Job Function</dt>
+        <dd>${targetUser.jobFunction || '-'}</dd>
+      </div>
+      <div class="config-item">
+        <dt>Organization</dt>
+        <dd>${organization ? `<a href="/organizations/${organization.id}">${organization.name}</a>` : 'Unknown'}</dd>
+      </div>
+      <div class="config-item">
+        <dt>Created</dt>
+        <dd>${new Date(targetUser.createdAt).toLocaleString()}</dd>
+      </div>
+      <div class="config-item">
+        <dt>Updated</dt>
+        <dd>${new Date(targetUser.updatedAt).toLocaleString()}</dd>
+      </div>
+    </dl>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header">
+    <h2>Goals (${goals.length})</h2>
+  </div>
+  <div class="card-body">
+    ${goals.length === 0 ? '<p class="text-muted">No goals owned by this user.</p>' : `
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Status</th>
+          <th>Progress</th>
+          <th>Visibility</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${goals.map(g => `
+        <tr>
+          <td>${g.title}</td>
+          <td><span class="badge badge-${g.status === 'completed' ? 'success' : g.status === 'in_progress' ? 'warning' : 'secondary'}">${g.status}</span></td>
+          <td>
+            <div class="progress-bar">
+              <div class="progress-fill" style="width: ${g.progress}%"></div>
+              <span class="progress-text">${g.progress}%</span>
+            </div>
+          </td>
+          <td><span class="badge">${g.visibility}</span></td>
+        </tr>
+        `).join('')}
+      </tbody>
+    </table>
+    `}
+  </div>
+</div>
+
+<div class="page-actions">
+  <a href="/users" class="btn btn-secondary">Back to Users</a>
+</div>
+` }) %>

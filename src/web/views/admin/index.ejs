@@ -1,0 +1,64 @@
+<%- include('../layouts/main', { body: `
+<div class="page-header">
+  <h1>Admin Dashboard</h1>
+  <p class="page-subtitle">System administration and management</p>
+</div>
+
+<div class="stats-grid">
+  <div class="stat-card">
+    <div class="stat-label">Total Users</div>
+    <div class="stat-value">${stats.totalUsers}</div>
+    <a href="/admin/personnel" class="stat-link">Manage Personnel</a>
+  </div>
+  <div class="stat-card">
+    <div class="stat-label">Organizations</div>
+    <div class="stat-value">${stats.totalOrganizations}</div>
+    <a href="/organizations" class="stat-link">View Organizations</a>
+  </div>
+  <div class="stat-card">
+    <div class="stat-label">Total Goals</div>
+    <div class="stat-value">${stats.totalGoals}</div>
+    <a href="/admin/goals" class="stat-link">Manage Goals</a>
+  </div>
+  <div class="stat-card">
+    <div class="stat-label">Leaders</div>
+    <div class="stat-value">${stats.leaderUsers}</div>
+    <a href="/admin/personnel" class="stat-link">View Leaders</a>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header">
+    <h2>Quick Actions</h2>
+  </div>
+  <div class="card-body">
+    <div class="quick-links">
+      <a href="/admin/personnel/add" class="quick-link">
+        <svg class="quick-link-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><line x1="20" y1="8" x2="20" y2="14"></line><line x1="23" y1="11" x2="17" y2="11"></line></svg>
+        <span class="quick-link-text">Add Personnel</span>
+      </a>
+      <a href="/admin/personnel/import" class="quick-link">
+        <svg class="quick-link-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+        <span class="quick-link-text">Import Personnel</span>
+      </a>
+      <a href="/admin/goals/create" class="quick-link">
+        <svg class="quick-link-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>
+        <span class="quick-link-text">Create Goal</span>
+      </a>
+      <a href="/admin/goals" class="quick-link">
+        <svg class="quick-link-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
+        <span class="quick-link-text">All Goals</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header">
+    <h2>Admin Users</h2>
+  </div>
+  <div class="card-body">
+    <p class="text-muted">There are <strong>${stats.adminUsers}</strong> admin user(s) in the system.</p>
+  </div>
+</div>
+` }) %>

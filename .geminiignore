@@ -1,0 +1,13 @@
+node_modules/
+.npm-cache/
+dist/
+build/
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+.git/
+.DS_Store
+northstar-data.json
+package-lock.json
+*.log

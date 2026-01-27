@@ -80,7 +80,15 @@ out
 
 # Nuxt.js build / generate output
 .nuxt
-dist
+
+# SQLite database
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+
+# Local npm cache
+.npm-cache/
 
 # Gatsby files
 .cache/
@@ -137,3 +145,16 @@ dist
 # Vite logs files
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
+
+# OS X
+.DS_Store
+
+# JetBrains IDE
+.idea/
+
+# JSON data exports
+northstar-data.json
+
+# General Build Output
+dist/
+build/

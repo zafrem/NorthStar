@@ -1,0 +1,72 @@
+<%- include('../layouts/main', { body: `
+<div class="page-header">
+  <h1>User Preferences</h1>
+  <p class="page-subtitle">Customize your NorthStar experience</p>
+</div>
+
+<div class="card">
+  <div class="card-header">
+    <h2>Preferences</h2>
+  </div>
+  <div class="card-body">
+    <form action="/preferences" method="POST" class="form">
+      <div class="form-group">
+        <label for="theme">Theme</label>
+        <select id="theme" name="theme">
+          <option value="system" ${preferences.theme === 'system' ? 'selected' : ''}>System</option>
+          <option value="light" ${preferences.theme === 'light' ? 'selected' : ''}>Light</option>
+          <option value="dark" ${preferences.theme === 'dark' ? 'selected' : ''}>Dark</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="defaultGoalVisibility">Default Goal Visibility</label>
+        <select id="defaultGoalVisibility" name="defaultGoalVisibility">
+          <option value="public" ${preferences.defaultGoalVisibility === 'public' ? 'selected' : ''}>Public</option>
+          <option value="team_only" ${preferences.defaultGoalVisibility === 'team_only' ? 'selected' : ''}>Team Only</option>
+          <option value="private" ${preferences.defaultGoalVisibility === 'private' ? 'selected' : ''}>Private</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="locale">Locale</label>
+        <select id="locale" name="locale">
+          <option value="en" ${preferences.locale === 'en' ? 'selected' : ''}>English</option>
+          <option value="es" ${preferences.locale === 'es' ? 'selected' : ''}>Spanish</option>
+          <option value="fr" ${preferences.locale === 'fr' ? 'selected' : ''}>French</option>
+          <option value="de" ${preferences.locale === 'de' ? 'selected' : ''}>German</option>
+          <option value="ja" ${preferences.locale === 'ja' ? 'selected' : ''}>Japanese</option>
+          <option value="ko" ${preferences.locale === 'ko' ? 'selected' : ''}>Korean</option>
+          <option value="zh" ${preferences.locale === 'zh' ? 'selected' : ''}>Chinese</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="timezone">Timezone</label>
+        <select id="timezone" name="timezone">
+          <option value="UTC" ${preferences.timezone === 'UTC' ? 'selected' : ''}>UTC</option>
+          <option value="America/New_York" ${preferences.timezone === 'America/New_York' ? 'selected' : ''}>Eastern Time (US)</option>
+          <option value="America/Chicago" ${preferences.timezone === 'America/Chicago' ? 'selected' : ''}>Central Time (US)</option>
+          <option value="America/Denver" ${preferences.timezone === 'America/Denver' ? 'selected' : ''}>Mountain Time (US)</option>
+          <option value="America/Los_Angeles" ${preferences.timezone === 'America/Los_Angeles' ? 'selected' : ''}>Pacific Time (US)</option>
+          <option value="Europe/London" ${preferences.timezone === 'Europe/London' ? 'selected' : ''}>London</option>
+          <option value="Europe/Paris" ${preferences.timezone === 'Europe/Paris' ? 'selected' : ''}>Paris</option>
+          <option value="Europe/Berlin" ${preferences.timezone === 'Europe/Berlin' ? 'selected' : ''}>Berlin</option>
+          <option value="Asia/Tokyo" ${preferences.timezone === 'Asia/Tokyo' ? 'selected' : ''}>Tokyo</option>
+          <option value="Asia/Seoul" ${preferences.timezone === 'Asia/Seoul' ? 'selected' : ''}>Seoul</option>
+          <option value="Asia/Shanghai" ${preferences.timezone === 'Asia/Shanghai' ? 'selected' : ''}>Shanghai</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="checkbox-label">
+          <input type="checkbox" name="notificationsEnabled" ${preferences.notificationsEnabled ? 'checked' : ''}>
+          Enable Notifications
+        </label>
+      </div>
+
+      <button type="submit" class="btn btn-primary">Save Preferences</button>
+    </form>
+  </div>
+</div>
+` }) %>

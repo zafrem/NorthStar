@@ -1,0 +1,38 @@
+<%- include('../layouts/main', { body: `
+<div class="page-header">
+  <h1>Edit User</h1>
+  <p class="page-subtitle">Update ${targetUser.name}</p>
+</div>
+
+<div class="card">
+  <div class="card-body">
+    <form action="/users/${targetUser.id}" method="POST" class="form">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" value="${targetUser.name}" required>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" value="${targetUser.email}" required>
+      </div>
+
+      <div class="form-group">
+        <label for="jobFunction">Job Function</label>
+        <input type="text" id="jobFunction" name="jobFunction" value="${targetUser.jobFunction || ''}" placeholder="e.g., Software Engineer, Product Manager">
+      </div>
+
+      <div class="form-group">
+        <label>Organization</label>
+        <p class="form-static">${organizations.find(o => o.id === targetUser.orgId)?.name || 'Unknown'}</p>
+        <small class="form-help">Organization cannot be changed from this interface.</small>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary">Save Changes</button>
+        <a href="/users/${targetUser.id}" class="btn btn-secondary">Cancel</a>
+      </div>
+    </form>
+  </div>
+</div>
+` }) %>

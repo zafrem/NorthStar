@@ -1,0 +1,68 @@
+<%- include('layouts/main', { body: `
+<div class="page-header">
+  <h1>Dashboard</h1>
+  <p class="page-subtitle">Welcome back, ${user.name}</p>
+</div>
+
+<div class="stats-grid">
+  <div class="stat-card">
+    <div class="stat-value">${stats.organizations}</div>
+    <div class="stat-label">Organizations</div>
+    <a href="/organizations" class="stat-link">View all</a>
+  </div>
+
+  <div class="stat-card">
+    <div class="stat-value">${stats.users}</div>
+    <div class="stat-label">Users</div>
+    <a href="/users" class="stat-link">View all</a>
+  </div>
+
+  <div class="stat-card">
+    <div class="stat-value">${stats.goals}</div>
+    <div class="stat-label">Total Goals</div>
+  </div>
+
+  <div class="stat-card">
+    <div class="stat-value">${stats.activeGoals}</div>
+    <div class="stat-label">Active Goals</div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header">
+    <h2>Organization Hierarchy</h2>
+  </div>
+  <div class="card-body">
+    <p class="text-muted" style="margin-bottom: 15px;">Click on an organization to expand/collapse. Shows leader and goal information.</p>
+    <div id="org-tree" class="org-tree" data-tree='${orgTree.replace(/'/g, "&#39;")}'></div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header">
+    <h2>Quick Links</h2>
+  </div>
+  <div class="card-body">
+    <div class="quick-links">
+      <a href="/settings" class="quick-link">
+        <svg class="quick-link-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.38a2 2 0 0 0-.73-2.73l-.15-.1a2 2 0 0 1-1-1.72v-.51a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+        <span class="quick-link-text">App Settings</span>
+      </a>
+      <a href="/preferences" class="quick-link">
+        <svg class="quick-link-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+        <span class="quick-link-text">My Preferences</span>
+      </a>
+      <a href="/organizations" class="quick-link">
+        <svg class="quick-link-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="21" width="18" height="2" rx="0"></rect><path d="M5 21V7a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v14"></path><path d="M9 10a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-5a2 2 0 0 0-2-2Z"></path></svg>
+        <span class="quick-link-text">Organizations</span>
+      </a>
+      <a href="/users" class="quick-link">
+        <svg class="quick-link-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+        <span class="quick-link-text">Users</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<script src="/public/js/dashboard.js"></script>
+` }) %>` }) %>

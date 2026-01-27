@@ -1,0 +1,113 @@
+<%- include('../layouts/main', { body: `
+<div class="page-header">
+  <div class="page-header-content">
+    <h1>${organization.name}</h1>
+    <a href="/organizations/${organization.id}/edit" class="btn btn-primary">Edit Organization</a>
+  </div>
+  <p class="page-subtitle">${organization.description || 'No description'}</p>
+</div>
+
+<div class="card">
+  <div class="card-header">
+    <h2>Details</h2>
+  </div>
+  <div class="card-body">
+    <dl class="config-list">
+      <div class="config-item">
+        <dt>ID</dt>
+        <dd><code>${organization.id}</code></dd>
+      </div>
+      <div class="config-item">
+        <dt>Created</dt>
+        <dd>${new Date(organization.createdAt).toLocaleString()}</dd>
+      </div>
+      <div class="config-item">
+        <dt>Updated</dt>
+        <dd>${new Date(organization.updatedAt).toLocaleString()}</dd>
+      </div>
+    </dl>
+  </div>
+</div>
+
+${organization.aiGuidelines ? `
+<div class="card">
+  <div class="card-header">
+    <h2>AI Guidelines</h2>
+  </div>
+  <div class="card-body">
+    <pre class="guidelines-content">${organization.aiGuidelines}</pre>
+  </div>
+</div>
+` : ''}
+
+<div class="card">
+  <div class="card-header">
+    <h2>Users (${users.length})</h2>
+  </div>
+  <div class="card-body">
+    ${users.length === 0 ? '<p class="text-muted">No users in this organization.</p>' : `
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Job Function</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${users.map(u => `
+        <tr>
+          <td><a href="/users/${u.id}">${u.name}</a></td>
+          <td>${u.email}</td>
+          <td>${u.jobFunction || '-'}</td>
+          <td>
+            <a href="/users/${u.id}" class="btn btn-sm btn-secondary">View</a>
+          </td>
+        </tr>
+        `).join('')}
+      </tbody>
+    </table>
+    `}
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header">
+    <h2>Goals (${goals.length})</h2>
+  </div>
+  <div class="card-body">
+    ${goals.length === 0 ? '<p class="text-muted">No goals in this organization.</p>' : `
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Status</th>
+          <th>Progress</th>
+          <th>Visibility</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${goals.map(g => `
+        <tr>
+          <td>${g.title}</td>
+          <td><span class="badge badge-${g.status === 'completed' ? 'success' : g.status === 'in_progress' ? 'warning' : 'secondary'}">${g.status}</span></td>
+          <td>
+            <div class="progress-bar">
+              <div class="progress-fill" style="width: ${g.progress}%"></div>
+              <span class="progress-text">${g.progress}%</span>
+            </div>
+          </td>
+          <td><span class="badge">${g.visibility}</span></td>
+        </tr>
+        `).join('')}
+      </tbody>
+    </table>
+    `}
+  </div>
+</div>
+
+<div class="page-actions">
+  <a href="/organizations" class="btn btn-secondary">Back to Organizations</a>
+</div>
+` }) %>

@@ -1,0 +1,59 @@
+<%- include('../../layouts/main', { body: `
+<div class="page-header">
+  <div class="page-header-content">
+    <div>
+      <h1>Personnel Management</h1>
+      <p class="page-subtitle">Manage all users in the system</p>
+    </div>
+    <div>
+      <a href="/admin/personnel/add" class="btn btn-primary">Add Personnel</a>
+      <a href="/admin/personnel/import" class="btn btn-secondary">Import</a>
+      <a href="/admin/personnel/export?format=csv" class="btn btn-secondary">Export CSV</a>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-body">
+    ${users.length === 0 ? '<p class="text-muted">No personnel found.</p>' : `
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Organization</th>
+          <th>Job Function</th>
+          <th>Role</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${users.map(u => `
+        <tr>
+          <td><a href="/users/${u.id}">${u.name}</a></td>
+          <td>${u.email}</td>
+          <td><a href="/organizations/${u.orgId}">${orgMap.get(u.orgId) || 'Unknown'}</a></td>
+          <td>${u.jobFunction || '-'}</td>
+          <td>
+            ${u.isAdmin ? '<span class="badge badge-admin">Admin</span>' : ''}
+            ${u.isLeader ? '<span class="badge badge-leader">Leader</span>' : ''}
+            ${!u.isAdmin && !u.isLeader ? '<span class="badge">User</span>' : ''}
+          </td>
+          <td>
+            <a href="/admin/personnel/${u.id}/edit" class="btn btn-sm btn-primary">Edit</a>
+            <form action="/admin/personnel/${u.id}/toggle-leader" method="POST" style="display:inline">
+              <button type="submit" class="btn btn-sm btn-secondary">${u.isLeader ? 'Remove Leader' : 'Make Leader'}</button>
+            </form>
+          </td>
+        </tr>
+        `).join('')}
+      </tbody>
+    </table>
+    `}
+  </div>
+</div>
+
+<div class="page-actions">
+  <a href="/admin" class="btn btn-secondary">Back to Admin Dashboard</a>
+</div>
+` }) %>

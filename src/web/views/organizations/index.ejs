@@ -1,0 +1,36 @@
+<%- include('../layouts/main', { body: `
+<div class="page-header">
+  <h1>Organizations</h1>
+  <p class="page-subtitle">Manage all organizations</p>
+</div>
+
+<div class="card">
+  <div class="card-body">
+    ${organizations.length === 0 ? '<p class="text-muted">No organizations found.</p>' : `
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Created</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${organizations.map(org => `
+        <tr>
+          <td><a href="/organizations/${org.id}">${org.name}</a></td>
+          <td>${org.description || '-'}</td>
+          <td>${new Date(org.createdAt).toLocaleDateString()}</td>
+          <td>
+            <a href="/organizations/${org.id}" class="btn btn-sm btn-secondary">View</a>
+            <a href="/organizations/${org.id}/edit" class="btn btn-sm btn-primary">Edit</a>
+          </td>
+        </tr>
+        `).join('')}
+      </tbody>
+    </table>
+    `}
+  </div>
+</div>
+` }) %>
