@@ -137,6 +137,3 @@ After running `npm run seed`, the following users are available:
 - [Architecture](docs/architecture/README.md)
 - [Example Hierarchy](docs/architecture/example-hierarchy.md)
 
-## License
-
-MIT
