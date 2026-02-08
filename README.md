@@ -1,11 +1,14 @@
 <p align="center">
-  <img src="images/Logo.jpg" alt="NotrhStar Logo" width="200">
+  <img src="images/Logo.png" alt="NotrhStar Logo" width="200">
 </p>
 
 # NorthStar
 
 Define the organization's goals hierarchically and inject them into AI assistants through Model Context Protocol (MCP) to ensure that individual work aligns with the organization's direction.
 
+## The Purpose Behind the Development
+
+"I've been experimenting with 'Vibe coding' lately, and it’s fascinating how the same task can yield such different results depending on who's doing it. It made me wonder: even within the same organization, does everyone actually need different context to execute the same request? But surely, the organization's goals should be aligned, right? That train of thought led me to build this tool. I'm still testing its effectiveness, but the concept started there."
 
 ## Installation
 
