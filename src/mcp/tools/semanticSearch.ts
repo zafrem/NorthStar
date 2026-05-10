@@ -2,6 +2,7 @@ import { z } from 'zod';
 import { getConfig } from '../../config/index.js';
 import { getUserById } from '../../models/user.js';
 import { getAllGoals } from '../../models/goal.js';
+import { getOrganizationById } from '../../models/organization.js';
 import { computeRelationship } from '../../rbac/relationships.js';
 import { hasPermission } from '../../rbac/permissions.js';
 import { Goal } from '../../models/types.js';
@@ -66,6 +67,14 @@ export function semanticSearch(input: SemanticSearchInput): SemanticSearchResult
       continue;
     }
 
+    // Visibility Check: 
+    // - Own org goals are always visible
+    // - Others must be public or team_only
+    // - Admins see everything
+    if (!user.isAdmin && goal.orgId !== user.orgId && goal.visibility === 'private') {
+      continue;
+    }
+
     // Simple keyword score simulation
     let score = 0;
     const content = `${goal.title} ${goal.description || ''}`.toLowerCase();
@@ -77,7 +86,6 @@ export function semanticSearch(input: SemanticSearchInput): SemanticSearchResult
     }
 
     if (score > 0) {
-      const { getOrganizationById } = require('../../models/organization.js');
       const org = getOrganizationById(goal.orgId);
       
       results.push({

@@ -670,4 +670,4 @@ function createGoals(): void {
 }
 
 // Export for programmatic use
-export { ORG_IDS, USER_IDS };
+export { ORG_IDS, USER_IDS, ROLE_IDS };
